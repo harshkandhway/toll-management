@@ -11,7 +11,7 @@
         name="toll-name"
         id="toll-name"
         placeholder="Enter toll name"
-        required 
+        required
       />
       <label for="fare-details"
         >Vehicle fare details<span class="compulsory-mark">*</span></label
@@ -23,7 +23,7 @@
         v-for="(fareDetail, index) in newTollForm.fareDetails"
         :key="index"
       >
-        <SelectVehicleType :fareDetail="fareDetail"/>
+        <SelectVehicleType :fareDetail="fareDetail" />
         <!-- <select
           v-model="fareDetail.vehicleType"
           class="form-input-fields"
@@ -56,7 +56,7 @@
           placeholder="Return Journey"
         />
       </div>
-      {{formValidation}}
+      {{ formValidation }}
       <AppButton
         :isDialog="true"
         @onAddNewEntry="onAddNewEntry"
@@ -71,11 +71,11 @@
 
 <script>
 import AppButton from "./UI/AppButton.vue";
-import SelectVehicleType from "./UI/SelectVehicleType.vue"
+import SelectVehicleType from "./UI/SelectVehicleType.vue";
 export default {
   components: {
     AppButton,
-    SelectVehicleType
+    SelectVehicleType,
   },
   data() {
     return {
@@ -104,24 +104,36 @@ export default {
           },
         ],
       },
-      formValidation: false
+      formValidation: false,
     };
   },
-  watch:{
-    checkFormEntries(value){
-        this.formValidation = value
-    }
+  watch: {
+    checkFormEntries(value) {
+      this.formValidation = value;
+    },
   },
-  computed:{
-      checkFormEntries(){
-          let filterdList = this.newTollForm.fareDetails.filter(item=>item.vehicleType || item.singleJourney || item.returnJourney)
-          let validateList = filterdList.every(item=>item.vehicleType && item.singleJourney && item.returnJourney)
-          return !!this.newTollForm.tollName && validateList && !!filterdList.length
-      }
+  computed: {
+    checkFormEntries() {
+      let filterdList = this.newTollForm.fareDetails.filter(
+        (item) => item.vehicleType || item.singleJourney || item.returnJourney
+      );
+      let validateList = filterdList.every(
+        (item) => item.vehicleType && item.singleJourney && item.returnJourney
+      );
+      return (
+        !!this.newTollForm.tollName && validateList && !!filterdList.length
+      );
+    },
   },
   methods: {
     onAddNewEntry() {
-      console.log(this.newTollForm);
+      //   console.log(this.newTollForm);
+      let fareDetails = this.newTollForm.fareDetails.filter(
+        (item) => item.vehicleType && item.singleJourney && item.returnJourney
+      );
+      this.newTollForm.fareDetails = fareDetails
+      this.$store.dispatch("commitTollEntries", this.newTollForm);
+      this.$router.push("/")
     },
   },
 };
