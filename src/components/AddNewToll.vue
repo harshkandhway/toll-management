@@ -124,9 +124,6 @@ export default {
       console.log(this.newTollForm);
     },
   },
-//   checkForm(){
-//       console.log("hii")
-//   }
 };
 </script>
 

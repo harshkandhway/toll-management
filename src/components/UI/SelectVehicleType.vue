@@ -15,24 +15,23 @@
 
 <script>
 export default {
-    props:{
-        fareDetail:{
-            type: Object,
-            // default: {vehicleType: null}
-        }
+  props: {
+    fareDetail: {
+      type: Object,
+      // default: {vehicleType: null}
     },
-    data() {
-        return {
-            vehicleTypes: ["Car/Jeep/Van", "LCV", "Trunk/Bus", "Heavy vehicle"],
-            selectedVehicleType: this.fareDetail || {vehicleType: null}
-        };
+  },
+  data() {
+    return {
+      vehicleTypes: ["Car/Jeep/Van", "LCV", "Trunk/Bus", "Heavy vehicle"],
+      selectedVehicleType: this.fareDetail || { vehicleType: null },
+    };
+  },
+  methods: {
+    changeVehicleType(event) {
+      this.$emit("setVehicleType", event.target.value);
     },
-    methods:{
-        changeVehicleType(event){
-            console.log(event.target.value)
-            this.$emit('setVehicleType', event.target.value)
-        }
-    }
+  },
 };
 </script>
 
