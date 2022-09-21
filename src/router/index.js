@@ -8,16 +8,36 @@ const routes = [
   {
     path: '/',
     name: 'home',
+    component: HomeView,
+    childred: [
+      
+      // {
+      //   path: '/newVehicle',
+      //   // // route level code-splitting
+      //   // // this generates a separate chunk (about.[hash].js) for this route
+      //   // // which is lazy-loaded when the route is visited.
+      //   // component: () => import(/* webpackChunkName: "about" */ '../components/AddNewToll.vue')
+      // },
+    ]
+  },
+  {
+    path: '/newVehicle',
+    name: 'newVehicle',
+    meta: { newVehicleDialog: true },
+    // // route level code-splitting
+    // // this generates a separate chunk (about.[hash].js) for this route
+    // // which is lazy-loaded when the route is visited.
     component: HomeView
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
+    path: '/newToll',
+    name: 'newToll',
+    meta: { newTollDialog: true },
+    // // route level code-splitting
+    // // this generates a separate chunk (about.[hash].js) for this route
+    // // which is lazy-loaded when the route is visited.
+    component: HomeView
+  },
 ]
 
 const router = new VueRouter({
