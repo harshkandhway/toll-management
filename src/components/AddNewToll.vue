@@ -168,5 +168,13 @@ export default {
   display: flex;
   justify-content: space-between;
   margin: 0 0 5px 0;
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: 650px)
+{
+    .fare-details{
+        margin: 0;
+    }
 }
 </style>

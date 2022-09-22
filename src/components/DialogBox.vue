@@ -1,5 +1,8 @@
 <template>
   <div class="dialog-box">
+    <div class="cross-button" @click="closeDialog">
+        x
+    </div>
     <div class="dialog-content">
         <h2 class="dialog-title">{{title}}</h2>
         <div class="dialog-form">
@@ -27,6 +30,16 @@ export default {
     components:{
         AddNewToll,
         AddNewVehicle
+    },
+
+    methods:{
+        closeDialog(){
+            this.dialog = false
+            this.$router.push("/")
+        },
+        // closeDialog2(){
+        //     this.dialog2 = false
+        // }
     }
 };
 </script>
@@ -50,6 +63,29 @@ export default {
 /* .dialog-title {
   text-align: center;
 } */
+.cross-button{
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+@media screen and (max-width:1100px)
+{
+    .dialog-box{
+        top: 60%;
+        position: absolute;
+    }
+}
+
+@media screen and (max-width:750px)
+{
+    .dialog-box{
+        top: 80%;
+        position: absolute;
+    }
+}
 .dialog-content{
     display: flex;
     flex-direction: column;
@@ -60,4 +96,7 @@ export default {
     width: 90%;
     margin: 1.5em;
 }
+
+
+
 </style>

@@ -151,7 +151,7 @@ body{
 
 /* Responsive */
 
-/* @media (max-width: 767px) {
+ @media (max-width: 767px) {
     .vehicle-table {
         display: block;
         width: 100%;
@@ -179,15 +179,16 @@ body{
         overflow-x: auto;
     }
     .vehicle-table td, .vehicle-table th {
-        padding: 20px .625em .625em .625em;
-        height: 60px;
-        vertical-align: middle;
-        box-sizing: border-box;
+        /* padding: 20px .625em .625em .625em; */
+        height: 55px;
         overflow-x: hidden;
         overflow-y: auto;
-        width: 120px;
+        width: 115px;
         font-size: 13px;
         text-overflow: ellipsis;
+        padding: 20px 16px 16px 16px;
+        vertical-align: middle;
+        box-sizing: border-box;
     }
     .vehicle-table thead th {
         text-align: left;
@@ -213,5 +214,5 @@ body{
         display: block;
         text-align: center;
     }
-} */
+} 
 </style>

@@ -153,4 +153,25 @@ button:active {
 .search-vehicle:active {
   border: 1px solid #949494;
 }
+
+@media screen and (max-width: 1050px)
+{
+    .search-vehicle{
+        margin: 14px;
+    }
+    button{
+        margin: 5px;
+    }
+}
+
+@media screen and (max-width: 650px)
+{
+    .search-vehicle{
+        margin: 10px;
+    }
+    button{
+        margin: 3px;
+        font-size: 10px;
+    }
+}
 </style>
