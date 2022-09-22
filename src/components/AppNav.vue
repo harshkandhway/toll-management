@@ -31,7 +31,7 @@
                 buttonValues:[
                 {value: "Add vehicle entry",path: "newVehicle"},
                 {value:"Add new toll", path: "newToll"},
-                {value:"View all tolls", path: "/"}
+                {value:"View all tolls", path: "tollLists"}
             ]
             }
         }

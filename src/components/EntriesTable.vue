@@ -1,89 +1,33 @@
 <template>
   <div class="hello">
+    <!-- {{getTollEntries}} -->
+    <!-- {{tollTable}} -->
     <div class="vehicle-list">
+      <!-- {{tableHeads}} -->
       <table class="vehicle-table">
         <thead>
           <tr>
-            <th>VEHICLE TYPE</th>
-            <th>VEHICLE NUMBER</th>
-            <th>DATE/TIME</th>
-            <th>TOLL NAME</th>
-            <th>TARIFF</th>
+            <th v-for="tableHead in tableHeads" :key="tableHead">
+              {{tableHead}}
+            </th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>Content 1</td>
-            <td>Content 1</td>
-            <td>Content 1</td>
-            <td>Content 1</td>
-            <td>Content 1</td>
-          </tr>
-          <tr>
-            <td>Content 2</td>
-            <td>Content 2</td>
-            <td>Content 2</td>
-            <td>Content 2</td>
-            <td>Content 2</td>
-          </tr>
-          <tr>
-            <td>Content 3</td>
-            <td>Content 3</td>
-            <td>Content 3</td>
-            <td>Content 3</td>
-            <td>Content 3</td>
-          </tr>
-          <tr>
-            <td>Content 4</td>
-            <td>Content 4</td>
-            <td>Content 4</td>
-            <td>Content 4</td>
-            <td>Content 4</td>
-          </tr>
-          <tr>
-            <td>Content 5</td>
-            <td>Content 5</td>
-            <td>Content 5</td>
-            <td>Content 5</td>
-            <td>Content 5</td>
-          </tr>
-          <tr>
-            <td>Content 6</td>
-            <td>Content 6</td>
-            <td>Content 6</td>
-            <td>Content 6</td>
-            <td>Content 6</td>
-          </tr>
-          <tr>
-            <td>Content 7</td>
-            <td>Content 7</td>
-            <td>Content 7</td>
-            <td>Content 7</td>
-            <td>Content 7</td>
-          </tr>
-          <tr>
-            <td>Content 8</td>
-            <td>Content 8</td>
-            <td>Content 8</td>
-            <td>Content 8</td>
-            <td>Content 8</td>
-          </tr>
-          <tr>
-            <td>Content 9</td>
-            <td>Content 9</td>
-            <td>Content 9</td>
-            <td>Content 9</td>
-            <td>Content 9</td>
-          </tr>
-          <tr>
-            <td>Content 10</td>
-            <td>Content 10</td>
-            <td>Content 10</td>
-            <td>Content 10</td>
-            <td>Content 10</td>
+        <tbody v-if="tollTable">
+          <tr v-for="({tollName, fareDetails},index) in getTollEntries" :key="index">
+            <td>{{tollName}}</td>
+            <td v-for="(fareDetail, fareDetailIndex) in fareDetails" :key="fareDetailIndex">{{fareDetail.singleJourney}}/{{fareDetail.returnJourney}}</td>
           </tr>
         </tbody>
-        <tbody></tbody>
+        <tbody v-else>
+          <tr v-for="(vehicle,index) in getVehicleEntries" :key="index">
+            <td>{{vehicle.vehicleType}}</td>
+            <td>{{vehicle.vehicleNumber}}</td>
+            <td>{{new Date(vehicle.dateTime)}}</td>
+            <td>{{vehicle.tollName}}</td>
+            <td>{{vehicle.tariff}}</td>
+            <!-- <td v-for="(fareDetail, fareDetailIndex) in fareDetails" :key="fareDetailIndex">{{fareDetail.singleJourney}}/{{fareDetail.returnJourney}}</td> -->
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>
@@ -94,7 +38,32 @@ export default {
   name: "HelloWorld",
   props: {
     msg: String,
+    tableHeads:{
+      type: Array,
+      default: null
+    },
+    tollTable:{
+      type: Boolean,
+      default: false
+    }
   },
+  // data(){
+  //   return{
+
+  //   }
+  // },
+  computed:{
+    getTollEntries(){
+      this.tableHeads.map((value)=>{
+        this.sortedTollEntries[value] = []
+      })
+      // console.log("sortedTollEntries",this.sortedTollEntries)
+      return this.$store.getters.getTollEntries || []
+    },
+    getVehicleEntries(){
+      return this.$store.getters.getVehicleEntries || []
+    }
+  }
 };
 </script>
 

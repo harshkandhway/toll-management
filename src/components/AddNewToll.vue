@@ -18,12 +18,13 @@
       >
       <!-- <input type="text" name="toll-name" id="toll-name"> -->
       <!-- {{ newTollForm }} -->
+      {{newTollForm.fareDetails}}
       <div
         class="fare-details"
         v-for="(fareDetail, index) in newTollForm.fareDetails"
         :key="index"
       >
-        <SelectVehicleType :fareDetail="fareDetail" />
+        <SelectVehicleType :fareDetail="fareDetail" @setVehicleType="setVehicleType"/>
         <!-- <select
           v-model="fareDetail.vehicleType"
           class="form-input-fields"
@@ -109,6 +110,7 @@ export default {
   },
   watch: {
     checkFormEntries(value) {
+        console.log(value)
       this.formValidation = value;
     },
   },
@@ -117,7 +119,8 @@ export default {
       let filterdList = this.newTollForm.fareDetails.filter(
         (item) => item.vehicleType || item.singleJourney || item.returnJourney
       );
-      let validateList = filterdList.every(
+      console.log(filterdList)
+      let validateList = this.newTollForm.fareDetails.every(
         (item) => item.vehicleType && item.singleJourney && item.returnJourney
       );
       return (
@@ -127,14 +130,32 @@ export default {
   },
   methods: {
     onAddNewEntry() {
-      //   console.log(this.newTollForm);
-      let fareDetails = this.newTollForm.fareDetails.filter(
-        (item) => item.vehicleType && item.singleJourney && item.returnJourney
-      );
-      this.newTollForm.fareDetails = fareDetails
+        console.log(this.newTollForm.fareDetails)
+      let sortNewTollForm =  ["Car/Jeep/Van", "LCV", "Trunk/Bus", "Heavy vehicle"].map((value)=>{
+        return this.newTollForm.fareDetails.find(({vehicleType})=>{
+            return value == vehicleType
+        })
+      })
+      console.log("sortNewTollForm",sortNewTollForm)
       this.$store.dispatch("commitTollEntries", this.newTollForm);
       this.$router.push("/")
     },
+    setVehicleType(vehicleType){
+        // console.log("vehicleType",vehicleType)
+        // console.log(this.newTollForm.fareDetails)
+        // console.log(this.newTollForm.fareDetails.filter((item)=>{return item.vehicleType == vehicleType}))
+        if(this.newTollForm.fareDetails.filter((item)=>{return item.vehicleType == vehicleType}).length>1){
+            console.log("hey")
+            this.$store.commit('setAlertType', 'success')
+            for(let i=this.newTollForm.fareDetails.length-1; i>=0;i--){
+                if(this.newTollForm.fareDetails[i].vehicleType == vehicleType){
+                    this.newTollForm.fareDetails[i].vehicleType = ""
+                    break;
+                }
+            }
+        }
+
+    }
   },
 };
 </script>

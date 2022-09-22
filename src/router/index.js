@@ -22,6 +22,12 @@ const routes = [
     meta: { newTollDialog: true },
     component: HomeView
   },
+  {
+    path: '/tollLists',
+    name: 'tollLists',
+    meta: { tollLists: true },
+    component: HomeView
+  },
 ]
 
 const router = new VueRouter({

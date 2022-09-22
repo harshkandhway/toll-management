@@ -7,8 +7,11 @@
     >
       Entry added successfully.
     </div>
-    <div v-if="alertType === 'error'" class="alert alert-success" role="alert">
+    <div v-if="alertType === 'error'" class="alert alert-danger" role="alert">
       Something went wrong! Please try again.
+    </div>
+    <div v-if="alertType === 'info'" class="alert alert-danger" role="alert">
+      Toll name already exist
     </div>
   </div>
 </template>

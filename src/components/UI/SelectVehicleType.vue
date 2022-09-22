@@ -6,7 +6,7 @@
     id="vehicle-type"
     @change="changeVehicleType($event)"
   >
-    <option selected>Select vehicle type</option>
+    <option value="" disabled selected>Select your option</option>
     <option v-for="vehicle in vehicleTypes" :key="vehicle" :value="vehicle">
       {{ vehicle }}
     </option>
@@ -29,6 +29,7 @@ export default {
   },
   methods: {
     changeVehicleType(event) {
+    //   this.vehicleTypes = this.vehicleTypes.filter((type)=>event.target.value != type)
       this.$emit("setVehicleType", event.target.value);
     },
   },

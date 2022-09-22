@@ -1,5 +1,6 @@
 <template>
   <div class="new-entry">
+    {{getTollsName}}
     <form class="add-new-form">
       <label for="toll-name"
         >Select toll name<span class="compulsory-mark">*</span></label
@@ -10,7 +11,10 @@
         name="toll-name"
         id="toll-name"
       >
-        <option selected>Kappalur</option>
+      <option value="" disabled selected>Select a toll</option>
+        <option v-for="(tollName,index) in getTollsName" :key="index">
+          {{tollName}}
+        </option>
       </select>
       <label for="vehicle-type"
         >Select vehicle type<span class="compulsory-mark">*</span></label
@@ -24,7 +28,7 @@
       >
       <input
         v-model="newEntryForm.vehicleNumber"
-        type="number"
+        type="text"
         class="form-input-fields"
         name="vehicle-number"
         id="vehicle-number"
@@ -40,6 +44,7 @@
         name="vehicle-tariff"
         id="vehicle-tariff"
         placeholder="Tariff amount"
+        disabled
       />
       <AppButton
         :isDialog="true"
@@ -64,9 +69,10 @@ export default {
   data() {
     return {
       newEntryForm: {
-        tollName: null,
-        vehicleType: null,
-        vehicleNumber: NaN,
+        vehicleType: "",
+        vehicleNumber: "",
+        dateTime: new Date(),
+        tollName: "",
         tariff: NaN,
       },
       formValidation: false
@@ -81,14 +87,33 @@ export default {
     checkFormEntries(){
       let formValidateList = Object.values(this.newEntryForm)
       return !formValidateList.some(item=>!item)
+    },
+    getTollsName(){
+      return this.$store.getters.getTollEntries.map(({tollName})=>{
+        return tollName
+      })
+    },
+    getTolls(){
+      return this.$store.getters.getTollEntries || []
     }
   },
   methods: {
     onAddNewEntry() {
       console.log(this.newEntryForm);
+      // this.newEntryForm.dateTime = new Date();
+      this.$store.dispatch("commitVehicleEntries", this.newEntryForm);
+      this.$router.push("/")
     },
     setVehicleType(selectedVehicle) {
       this.newEntryForm.vehicleType = selectedVehicle;
+      let getSingleToll = this.getTolls.find(({tollName})=>{
+        return tollName == this.newEntryForm.tollName
+      })
+      this.newEntryForm.tariff = getSingleToll.fareDetails.find((item)=>{
+        return item.vehicleType == selectedVehicle
+      }).singleJourney
+      console.log(this.newEntryForm.tariff)
+
     },
   },
 };

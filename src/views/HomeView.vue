@@ -1,11 +1,11 @@
 <template>
   <div class="home">
-    <AlertBox v-if="alertBox" />
+    <AlertBox v-if="alertBox" :alertType="alertBox"/>
     <AppNav />
-    <EntriesTable />
+    <EntriesTable :tableHeads="tableHeads" :tollTable="routeMeta"/>
     <template>
       <DialogBox
-        v-if="Object.values($route.meta).length"
+        v-if="$route.meta.newTollDialog || $route.meta.newVehicleDialog"
         :paramValue="$route.meta"
         title="Add new Vehicle"
       />
@@ -28,18 +28,36 @@ export default {
     DialogBox,
     AlertBox,
   },
+  data(){
+    return{
+      tableHeads: ["VEHICLE TYPE", "VEHICLE NUMBER","DATE/TIME", "TOLL NAME","TARIFF"]
+    }
+  },
   computed:{
     alertBox(){
       return this.$store.state.alertType;
+    },
+    routeMeta(){
+      return this.$route.meta.tollLists
     }
+  },
+  created(){
+    if(this.$route.meta.tollLists)
+    this.tableHeads = ["TOLL NAME", "Car/Jeep/Van", "LCV", "Trunk/Bus", "Heavy vehicle"]
   },
   watch: {
     alertBox(){
-      setTimeout(()=>this.$store.commit('setAlertType', ''),2000)
+      setTimeout(()=>this.$store.commit('setAlertType', ''),3000)
     },
-    $route() {
-      console.log(this.$route.params);
-    },
+    routeMeta(value){
+      console.log(value)
+      if(value){
+        this.tableHeads = ["TOLL NAME", "Car/Jeep/Van", "LCV", "Trunk/Bus", "Heavy vehicle"]
+      }
+    }
+    // $route() {
+    //   console.log(this.$route.params);
+    // },
   },
 };
 </script>
