@@ -57,7 +57,6 @@
           placeholder="Return Journey"
         />
       </div>
-      {{ formValidation }}
       <AppButton
         :isDialog="true"
         @onAddNewEntry="onAddNewEntry"

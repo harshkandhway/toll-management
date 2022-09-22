@@ -1,6 +1,5 @@
 <template>
   <div class="new-entry">
-    {{getTollsName}}
     <form class="add-new-form">
       <label for="toll-name"
         >Select toll name<span class="compulsory-mark">*</span></label
