@@ -1,5 +1,6 @@
 <template>
   <div>
+      {{this.$route.meta.tollLists}}
     <nav>
         <ul>
             <li>
@@ -28,10 +29,11 @@
         },
         data(){
             return{
+                isTollListMeta: false,
                 buttonValues:[
-                {value: "Add vehicle entry",path: "newVehicle"},
-                {value:"Add new toll", path: "newToll"},
-                (this.$route.meta.tollLists?{value:"View all tolls", path: "tollLists"}:{value:"Back to vehicle", path: "/"}) && {value:"Back to vehicle", path: "/"},
+                // {value: "Add vehicle entry",path: "newVehicle"},
+                // {value:"Add new toll", path: "newToll"},
+                // (!this.$route.meta.tollLists? {value:"Back to vehicle", path: "/"} :{value:"View all tolls", path: "tollLists"}),
             ]
             }
         },
@@ -49,9 +51,16 @@
                 })
             }
         },
-        // created(){
-        //     this.changeTollListValue()
-        // }
+        created(){
+            this.isTollListMeta = this.$route.meta.tollLists || false
+            console.log(this.isTollListMeta)
+            this.buttonValues = [
+                {value: "Add vehicle entry",path: "newVehicle"},
+                {value:"Add new toll", path: "newToll"},
+                (this.isTollListMeta ? {value:"Back to vehicle", path: "/"} : {value:"View all tolls", path: "tollLists"}),
+            ]
+            console.log(this.buttonValues)
+        }
 
     }
     

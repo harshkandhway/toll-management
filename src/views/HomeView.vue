@@ -44,6 +44,8 @@ export default {
   created(){
     if(this.$route.meta.tollLists)
     this.tableHeads = ["TOLL NAME", "Car/Jeep/Van", "LCV", "Trunk/Bus", "Heavy vehicle"]
+    else
+    this.tableHeads = ["VEHICLE TYPE", "VEHICLE NUMBER","DATE/TIME", "TOLL NAME","TARIFF"]
   },
   watch: {
     alertBox(){
@@ -54,6 +56,8 @@ export default {
       if(value){
         this.tableHeads = ["TOLL NAME", "Car/Jeep/Van", "LCV", "Trunk/Bus", "Heavy vehicle"]
       }
+      else
+      this.tableHeads = ["VEHICLE TYPE", "VEHICLE NUMBER","DATE/TIME", "TOLL NAME","TARIFF"]
     }
     // $route() {
     //   console.log(this.$route.params);
