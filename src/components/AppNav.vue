@@ -1,6 +1,6 @@
 <template>
   <div>
-      {{this.$route.meta.tollLists}}
+      <!-- {{this.$route.meta.tollLists}} -->
     <nav>
         <ul>
             <li>

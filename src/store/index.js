@@ -32,6 +32,15 @@ export default new Vuex.Store({
     },
     setAlertType(state, alertType) {
       state.alertType = alertType
+    },
+    deleteVehicleEntry(state, vehiclePayloadIndex){
+      // console.log("deleteVehicleEntry",vehiclePayloadIndex)
+      // let vehicleEntries = JSON.parse(JSON.stringify(state.vehicleEntries))
+      // console.log(vehicleEntries)
+      
+      state.vehicleEntries.splice(state.vehicleEntries.findIndex((vehicle, index) => index === vehiclePayloadIndex) , 1)
+      localStorage.setItem(VEHICLE_ENTRIES, JSON.stringify(state.vehicleEntries))
+      // console.log(vehicleEntries)
     }
   },
   actions: {
@@ -70,7 +79,8 @@ export default new Vuex.Store({
         vuexContext.commit('setAlertType', 'error')
 
       }
-    }
+    },
+    
   },
   modules: {
   }

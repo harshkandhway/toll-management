@@ -3,16 +3,16 @@
     <!-- {{getTollEntries}} -->
     <!-- {{tollTable}} -->
     <div class="vehicle-list">
-      {{tableHeads}}
+      <!-- {{tableHeads}} -->
       <table class="vehicle-table">
         <thead>
           <tr>
             <th v-for="tableHead in tableHeads" :key="tableHead">
               {{tableHead}}
             </th>
-            <!-- <th v-if="!tollTable">
+            <th v-if="!tollTable">
               Delete
-            </th> -->
+            </th>
           </tr>
         </thead>
         <tbody v-if="tollTable">
@@ -28,7 +28,7 @@
             <td>{{new Date(vehicle.dateTime)}}</td>
             <td>{{vehicle.tollName}}</td>
             <td>{{vehicle.tariff}}</td>
-            <!-- <td><button type="button" value="Delete" @click="deleteVehicleEntry(vehicle)">Delete</button></td> -->
+            <td><button type="button" value="Delete" @click="deleteVehicleEntry(index)">Delete</button></td>
             <!-- <td v-for="(fareDetail, fareDetailIndex) in fareDetails" :key="fareDetailIndex">{{fareDetail.singleJourney}}/{{fareDetail.returnJourney}}</td> -->
           </tr>
         </tbody>
@@ -57,8 +57,9 @@ export default {
   //   }
   // },
   methods:{
-    deleteVehicleEntry(vehicle){
-      console.log(vehicle)
+    deleteVehicleEntry(index){
+      console.log(index)
+      this.$store.commit('deleteVehicleEntry', index)
     }
   },
   computed:{
