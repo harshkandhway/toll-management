@@ -60,6 +60,7 @@ export default {
     deleteVehicleEntry(index){
       console.log(index)
       this.$store.commit('deleteVehicleEntry', index)
+      this.$emit("deleteBackupVehicle")
     }
   },
   computed:{

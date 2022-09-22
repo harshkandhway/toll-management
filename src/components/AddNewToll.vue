@@ -18,7 +18,7 @@
       >
       <!-- <input type="text" name="toll-name" id="toll-name"> -->
       <!-- {{ newTollForm }} -->
-      {{newTollForm.fareDetails}}
+      <!-- {{newTollForm.fareDetails}} -->
       <div
         class="fare-details"
         v-for="(fareDetail, index) in newTollForm.fareDetails"
@@ -144,8 +144,7 @@ export default {
         // console.log(this.newTollForm.fareDetails)
         // console.log(this.newTollForm.fareDetails.filter((item)=>{return item.vehicleType == vehicleType}))
         if(this.newTollForm.fareDetails.filter((item)=>{return item.vehicleType == vehicleType}).length>1){
-            console.log("hey")
-            this.$store.commit('setAlertType', 'success')
+            this.$store.commit('setAlertType', 'duplicate')
             for(let i=this.newTollForm.fareDetails.length-1; i>=0;i--){
                 if(this.newTollForm.fareDetails[i].vehicleType == vehicleType){
                     this.newTollForm.fareDetails[i].vehicleType = ""

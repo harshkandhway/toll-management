@@ -1,8 +1,8 @@
 <template>
   <div class="home">
     <AlertBox v-if="alertBox" :alertType="alertBox"/>
-    <AppNav />
-    <EntriesTable :tableHeads="tableHeads" :tollTable="routeMeta"/>
+    <AppNav :deleteBackup="deleteBackup"/>
+    <EntriesTable :tableHeads="tableHeads" :tollTable="routeMeta" @deleteBackupVehicle="deleteBackupVehicle"/>
     <template>
       <DialogBox
         v-if="$route.meta.newTollDialog || $route.meta.newVehicleDialog"
@@ -30,7 +30,8 @@ export default {
   },
   data(){
     return{
-      tableHeads: ["VEHICLE TYPE", "VEHICLE NUMBER","DATE/TIME", "TOLL NAME","TARIFF"]
+      tableHeads: ["VEHICLE TYPE", "VEHICLE NUMBER","DATE/TIME", "TOLL NAME","TARIFF"],
+      deleteBackup: false
     }
   },
   computed:{
@@ -39,6 +40,11 @@ export default {
     },
     routeMeta(){
       return this.$route.meta.tollLists
+    }
+  },
+  methods:{
+    deleteBackupVehicle(){
+      this.deleteBackup = true
     }
   },
   created(){

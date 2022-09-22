@@ -41,7 +41,11 @@ export default new Vuex.Store({
       state.vehicleEntries.splice(state.vehicleEntries.findIndex((vehicle, index) => index === vehiclePayloadIndex) , 1)
       localStorage.setItem(VEHICLE_ENTRIES, JSON.stringify(state.vehicleEntries))
       // console.log(vehicleEntries)
-    }
+    },
+    setSearchedVehicleEntries(state, vehicleEntries) {
+      state.vehicleEntries = (vehicleEntries)
+      // localStorage.setItem(VEHICLE_ENTRIES, JSON.stringify(state.vehicleEntries))
+    },
   },
   actions: {
     commitTollEntries(vuexContext, tollEntriesPayload) {

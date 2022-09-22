@@ -13,6 +13,13 @@
     <div v-if="alertType === 'info'" class="alert alert-danger" role="alert">
       Toll name already exist
     </div>
+    <div
+      v-if="alertType === 'duplicate'"
+      class="alert alert-danger"
+      role="alert"
+    >
+      Vehicle type already selected.
+    </div>
   </div>
 </template>
 
