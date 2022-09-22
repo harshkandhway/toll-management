@@ -54,9 +54,9 @@ export default {
   // },
   computed:{
     getTollEntries(){
-      this.tableHeads.map((value)=>{
-        this.sortedTollEntries[value] = []
-      })
+      // this.tableHeads.map((value)=>{
+      //   this.sortedTollEntries[value] = []
+      // })
       // console.log("sortedTollEntries",this.sortedTollEntries)
       return this.$store.getters.getTollEntries || []
     },

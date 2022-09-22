@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{buttonValues}}
     <nav>
         <ul>
             <li>
@@ -10,7 +11,7 @@
             
             <li>
                 <span v-for="{value, path} in buttonValues" :key="value">
-                    <AppButton :isDialog="false" formInputFields="button-nav button-common" :buttonValue="value" :buttonPath="path"/>
+                    <AppButton @changeTollListValue="changeTollListValue" :isDialog="false" formInputFields="button-nav button-common" :buttonValue="value" :buttonPath="path"/>
                 </span>
             </li>
         </ul>      
@@ -31,10 +32,28 @@
                 buttonValues:[
                 {value: "Add vehicle entry",path: "newVehicle"},
                 {value:"Add new toll", path: "newToll"},
-                {value:"View all tolls", path: "tollLists"}
+                (this.$route.meta.tollLists?{value:"View all tolls", path: "tollLists"}:{value:"Back to vehicle", path: "/"}) && {value:"Back to vehicle", path: "/"},
             ]
             }
-        }
+        },
+        methods:{
+            changeTollListValue(){
+                this.buttonValues.forEach((value)=>{
+                    if(value.path=="tollLists"){
+                        value.value = "Back to vehicle"
+                        value.path = "/"
+                    }
+                    else if(value.path=="/"){
+                        value.value = "View all tolls"
+                        value.path = "tollLists"
+                    }
+                })
+            }
+        },
+        // created(){
+        //     this.changeTollListValue()
+        // }
+
     }
     
 </script>
